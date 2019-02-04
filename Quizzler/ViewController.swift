@@ -24,7 +24,9 @@ class ViewController: UIViewController {
     }
 
 
-    @IBAction func answerPressed(_ sender: AnyObject) {
+    @IBAction func answerPressed(_ sender: UIControl) {
+        
+        print(sender.tag)
   
     }
     
