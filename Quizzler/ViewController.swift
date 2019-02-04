@@ -11,6 +11,8 @@ import UIKit
 class ViewController: UIViewController {
     
     //Place your instance variables here
+    let allQuestions = QuestionBank();
+     var pickedAnswer: Bool = false;
     
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -19,7 +21,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var progressLabel: UILabel!
     
     override func viewDidLoad() {
-        super.viewDidLoad()
+        super.viewDidLoad();
+        
+       
+        let firstItem = allQuestions.list[0]
+        questionLabel.text = firstItem.questionText
         
     }
 
@@ -27,7 +33,18 @@ class ViewController: UIViewController {
     @IBAction func answerPressed(_ sender: UIControl) {
         
         print(sender.tag)
-  
+        
+        if (sender.tag == 1) {
+            print("true")
+            pickedAnswer = true;
+        }
+        if (sender.tag == 2) {
+            print("false")
+            pickedAnswer = false;
+        }
+        
+        checkAnswer()
+
     }
     
     
@@ -43,6 +60,16 @@ class ViewController: UIViewController {
     
     func checkAnswer() {
         
+        let firstItem = allQuestions.list[0];
+        questionLabel.text = firstItem.questionText
+        
+        let firstItemAnswer = allQuestions.list[0].answer;
+        
+        if(firstItemAnswer == pickedAnswer){
+            print("correct answer");
+        } else {
+            print("nope, try again");
+        }
     }
     
     

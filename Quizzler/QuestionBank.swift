@@ -12,7 +12,8 @@ import Foundation
 
 class QuestionBank {
     
-    var list = [Question](); 
+    var list = [Question]();
+    var gel = "Gel";
     
     init(){
         // Creating a quiz item and appending it to the list
