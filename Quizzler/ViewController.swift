@@ -12,7 +12,8 @@ class ViewController: UIViewController {
     
     //Place your instance variables here
     let allQuestions = QuestionBank();
-     var pickedAnswer: Bool = false;
+    var pickedAnswer: Bool = false;
+    var questionNumber: Int = 0; // keeps track of state of which question the user is on
     
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -44,6 +45,14 @@ class ViewController: UIViewController {
         }
         
         checkAnswer()
+        questionNumber += 1;
+        print(questionNumber);
+        if(questionNumber == allQuestions.list.count) {
+            questionNumber = 0;
+            print("DONE! ");
+        }
+        questionLabel.text = allQuestions.list[questionNumber].questionText;
+        
 
     }
     
@@ -60,10 +69,10 @@ class ViewController: UIViewController {
     
     func checkAnswer() {
         
-        let firstItem = allQuestions.list[0];
+        let firstItem = allQuestions.list[questionNumber];
         questionLabel.text = firstItem.questionText
         
-        let firstItemAnswer = allQuestions.list[0].answer;
+        let firstItemAnswer = allQuestions.list[questionNumber].answer;
         
         if(firstItemAnswer == pickedAnswer){
             print("correct answer");
