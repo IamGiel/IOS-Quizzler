@@ -14,7 +14,7 @@ class ViewController: UIViewController {
     let allQuestions = QuestionBank();
     var pickedAnswer: Bool = false;
     var questionNumber: Int = 0; // keeps track of state of which question the user is on
-    
+    var score = 0;
     
     @IBOutlet weak var questionLabel: UILabel!
     @IBOutlet weak var scoreLabel: UILabel!
@@ -27,6 +27,8 @@ class ViewController: UIViewController {
        
         let firstItem = allQuestions.list[0]
         questionLabel.text = firstItem.questionText
+//        scoreLabel.text = "Score: \(score)";
+        progressBar.frame.size.width = 32;
         
     }
 
@@ -47,12 +49,16 @@ class ViewController: UIViewController {
         checkAnswer()
         questionNumber += 1;
         nextQuestion()
+        
 
     }
     
     
     func updateUI() {
-      
+        progressLabel.text = "\(questionNumber + 1)/\(allQuestions.list.count)";
+        scoreLabel.text = "Score: \(score)";
+        print( progressBar.frame.size.width);
+        progressBar.frame.size.width += 32;
     }
     
 
@@ -62,11 +68,10 @@ class ViewController: UIViewController {
         if(questionNumber == allQuestions.list.count) {
             questionNumber = 0;
             // print("DONE! ");
-            let alert = UIAlertController(title: "Try Again?", message: "Beat the top score!", preferredStyle: .actionSheet); // try .alert
-            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
-            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
-            
-            self.present(alert, animated: true)
+            let alert = UIAlertController(title: "AWESOME!", message: "Beat the top score! and try again...", preferredStyle: .actionSheet); // try .alert
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: {(UIAlertAction) in self.startOver()}))
+            // alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            self.present(alert, animated: true, completion: nil);
         }
         questionLabel.text = allQuestions.list[questionNumber].questionText;
         
@@ -82,14 +87,22 @@ class ViewController: UIViewController {
         
         if(firstItemAnswer == pickedAnswer){
             print("correct answer");
+            score += 1;
+            print(score);
         } else {
             print("nope, try again");
         }
+        
+        updateUI();
     }
     
     
     func startOver() {
-       
+        print("starting over");
+        questionNumber = 0;
+        nextQuestion();
+        score = 0;
+        updateUI();
     }
     
 
