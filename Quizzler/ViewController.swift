@@ -46,13 +46,7 @@ class ViewController: UIViewController {
         
         checkAnswer()
         questionNumber += 1;
-        print(questionNumber);
-        if(questionNumber == allQuestions.list.count) {
-            questionNumber = 0;
-            print("DONE! ");
-        }
-        questionLabel.text = allQuestions.list[questionNumber].questionText;
-        
+        nextQuestion()
 
     }
     
@@ -63,6 +57,18 @@ class ViewController: UIViewController {
     
 
     func nextQuestion() {
+        
+        print(questionNumber);
+        if(questionNumber == allQuestions.list.count) {
+            questionNumber = 0;
+            // print("DONE! ");
+            let alert = UIAlertController(title: "Try Again?", message: "Beat the top score!", preferredStyle: .actionSheet); // try .alert
+            alert.addAction(UIAlertAction(title: "Yes", style: .default, handler: nil))
+            alert.addAction(UIAlertAction(title: "No", style: .cancel, handler: nil))
+            
+            self.present(alert, animated: true)
+        }
+        questionLabel.text = allQuestions.list[questionNumber].questionText;
         
     }
     
