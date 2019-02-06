@@ -28,7 +28,7 @@ class ViewController: UIViewController {
         let firstItem = allQuestions.list[0]
         questionLabel.text = firstItem.questionText
 //        scoreLabel.text = "Score: \(score)";
-        progressBar.frame.size.width = 32;
+        progressBar.frame.size.width = view.frame.size.width;
         
     }
 
@@ -58,7 +58,7 @@ class ViewController: UIViewController {
         progressLabel.text = "\(questionNumber + 1)/\(allQuestions.list.count)";
         scoreLabel.text = "Score: \(score)";
         print( progressBar.frame.size.width);
-        progressBar.frame.size.width += 32;
+        progressBar.frame.size.width = (view.frame.size.width / 13) * CGFloat(questionNumber + 1);
     }
     
 
@@ -86,11 +86,13 @@ class ViewController: UIViewController {
         let firstItemAnswer = allQuestions.list[questionNumber].answer;
         
         if(firstItemAnswer == pickedAnswer){
-            print("correct answer");
+            print("correct");
+            ProgressHUD.showSuccess("Correct")
             score += 1;
             print(score);
         } else {
-            print("nope, try again");
+            print("Wrong");
+            ProgressHUD.showError("Error")
         }
         
         updateUI();
